@@ -1,0 +1,108 @@
+$primary: #ff6a00;
+$text-black: #1a1a1a;
+$text-gray: #6b7280;
+$border: #e5e7eb;
+$white: #ffffff;
+
+.pizzaList {
+  margin-top: 20px;
+}
+
+.pageTitle {
+  font-size: 32px;
+  font-weight: 700;
+  color: $text-black;
+  margin-bottom: 24px;
+}
+
+.filtersTabs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.tab {
+  padding: 10px 20px;
+  border-radius: 30px;
+  background: $white;
+  border: 1px solid $border;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  color: $text-black;
+}
+
+.tab.active,
+.tab:hover {
+  background: $primary;
+  color: $white;
+  border-color: $primary;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid $border;
+  color: $text-black;
+  font-weight: 600;
+  background: $white;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.page.active {
+  background: $primary;
+  color: $white;
+  border-color: $primary;
+}
+
+.page.arrow {
+  background: transparent;
+  border: none;
+}
+
+.page.arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.page:not(.active):hover {
+  background: #f3f4f6;
+}
+
+.loading,
+.error {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: $text-black;
+}

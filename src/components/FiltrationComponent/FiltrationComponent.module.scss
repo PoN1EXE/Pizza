@@ -1,0 +1,202 @@
+$primary: #ef4444;
+$primary-dark: #dc2626;
+$gray-light: #f8fafc;
+$gray-border: #e2e8f0;
+$text-dark: #0f172a;
+$text-gray: #64748b;
+$radius: 12px;
+$shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+
+.filters {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  border: 1px solid $gray-border;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+  max-width: 280px;
+  width: 100%;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: $text-dark;
+  margin: 0 0 1.2rem 0;
+}
+
+.group {
+  margin-bottom: 1.5rem;
+}
+
+.groupTitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: $text-dark;
+  margin: 0 0 0.6rem 0;
+}
+
+.checkboxGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: $text-dark;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkboxLabel input[type='checkbox'] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid $gray-border;
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.checkboxLabel input[type='checkbox']:checked {
+  background: $primary;
+  border-color: $primary;
+}
+
+.checkboxLabel input[type='checkbox']:checked::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.checkboxLabel input[type='checkbox']:hover {
+  border-color: $primary;
+}
+
+.radioGroup {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  color: $text-dark;
+  cursor: pointer;
+}
+
+.radioLabel input[type='radio'] {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid $gray-border;
+  border-radius: 50%;
+  background: #ffffff;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.radioLabel input[type='radio']:checked {
+  border-color: $primary;
+}
+
+.radioLabel input[type='radio']:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: $primary;
+}
+
+.radioLabel input[type='radio']:hover {
+  border-color: $primary;
+}
+
+.priceRange {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: $text-gray;
+  margin-top: 0.4rem;
+}
+
+.priceRange input {
+  width: 80px;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid $gray-border;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.showAll {
+  display: inline-block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  color: $primary;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.showAll:hover {
+  text-decoration: underline;
+}
+
+.applyBtn {
+  width: 100%;
+  padding: 0.6rem 0;
+  background: $primary;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+}
+
+.applyBtn:hover {
+  background: $primary-dark;
+}
+
+.applyBtn:active {
+  transform: scale(0.96);
+}
+
+@media (max-width: 768px) {
+  .filters {
+    max-width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    border-left: none;
+    border-right: none;
+  }
+}

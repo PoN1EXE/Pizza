@@ -1,0 +1,25 @@
+.page {
+  display: flex;
+  flex: 1;
+  gap: 0;
+  padding: 0;
+  max-width: 100%;
+  margin: 0;
+}
+
+.filtersColumn {
+  flex: 0 0 320px;
+  background: #f8fafc;
+  padding: 2rem 1.5rem;
+  height: 100%;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  border-right: 1px solid #e2e8f0;
+}
+
+.pizzaColumn {
+  flex: 1;
+  padding: 2rem 2rem 2rem 1.5rem;
+  background: #ffffff;
+}
