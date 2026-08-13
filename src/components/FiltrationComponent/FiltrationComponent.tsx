@@ -46,9 +46,6 @@ export const FiltrationComponent = () => {
             <input type='checkbox' /> Томаты
           </label>
         </div>
-        <a href='#' className={styles.showAll}>
-          Показать всё
-        </a>
       </div>
 
       <div className={styles.group}>

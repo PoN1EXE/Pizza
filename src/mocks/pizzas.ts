@@ -11,8 +11,9 @@ export interface Pizza {
   ingredients: Ingredient[]
   description: string
   imageUrl: string
+  rating?: number
+  category: string
 }
-
 export const pizzas: Pizza[] = [
   {
     id: 'pizza-1',
@@ -25,6 +26,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Классическая итальянская пицца с томатным соусом, моцареллой и свежим базиликом.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-2',
@@ -37,6 +39,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Острая пицца с пикантной пепперони и тягучим сыром.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-3',
@@ -50,6 +53,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Необычное сочетание сладкого ананаса и солёной ветчины на сырной основе.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-4',
@@ -63,6 +67,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Для настоящих ценителей сыра: моцарелла, горгонзола, пармезан и дорблю.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-5',
@@ -77,6 +82,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сытная пицца с тремя видами мяса: бекон, ветчина и пепперони.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-6',
@@ -90,6 +96,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Ароматная пицца с шампиньонами и каплей трюфельного масла.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-7',
@@ -104,6 +111,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Лёгкая и сочная пицца с сезонными овощами.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-8',
@@ -118,6 +126,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Богатая морепродуктами пицца для любителей океанских вкусов.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-9',
@@ -131,6 +140,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца в стиле карбонара с беконом и яйцом поверх сыра.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-10',
@@ -145,6 +155,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Острая пицца с чоризо, пепперони и жгучим перцем.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-11',
@@ -158,6 +169,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Классическая маргарита, дополненная нежной ветчиной.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-12',
@@ -172,6 +184,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с говяжьим фаршем, острым халапеньо и расплавленным чеддером.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-13',
@@ -186,6 +199,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Изысканная пицца с прошутто, рукколой и пармезаном.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-14',
@@ -200,6 +214,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с тремя видами грибов для настоящих грибников.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-15',
@@ -214,6 +229,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с курицей, беконом, луком и соусом барбекю.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-16',
@@ -227,6 +243,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пикантная салями в сочетании с хрустящим перцем.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-17',
@@ -241,6 +258,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с тунцом, луком и маслинами — средиземноморский вкус.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-18',
@@ -256,6 +274,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с четырьмя разными начинками по секторам.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-19',
@@ -270,6 +289,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с мясным соусом болоньезе и свежим чесноком.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-20',
@@ -283,8 +303,8 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сладкий ананас и солёный бекон — необычное, но вкусное сочетание.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
-
   {
     id: 'pizza-21',
     name: 'Курица BBQ',
@@ -298,6 +318,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с нежным куриным филе, соусом BBQ и расплавленным чеддером.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-22',
@@ -311,6 +332,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Изысканная пицца с нежным лососем на сливочном соусе.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-23',
@@ -326,6 +348,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сытная деревенская пицца с беконом, картофелем и яйцом.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-24',
@@ -340,6 +363,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Средиземноморская пицца с анчоусами, каперсами и маслинами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-25',
@@ -354,6 +378,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Закрытая пицца-конверт с рикоттой, ветчиной и шпинатом.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-26',
@@ -368,6 +393,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пикантное сочетание благородных сыров с каплей сладкого меда.',
     imageUrl: '/pizza.png',
+    category: 'sweet',
   },
   {
     id: 'pizza-27',
@@ -383,6 +409,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Острая пицца с говядиной, халапеньо и кукурузой.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-28',
@@ -397,6 +424,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Оригинальная вегетарианская пицца с тофу и свежими овощами.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-29',
@@ -410,6 +438,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с сочным говяжьим брискетом в соусе BBQ.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-30',
@@ -424,6 +453,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Итальянская классика с артишоками, ветчиной и грибами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-31',
@@ -438,6 +468,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сочная начинка из шпината и греческого сыра фета.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-32',
@@ -452,6 +483,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Премиальная пицца с трюфельным соусом и яичным желтком.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-33',
@@ -466,6 +498,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Нежная индейка с сыром чеддер и помидорами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-34',
@@ -480,6 +513,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Для любителей салями — два вида колбасы с паприкой.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-35',
@@ -495,6 +529,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца в средиземноморском стиле с фетой и орегано.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-36',
@@ -509,6 +544,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пикантная пицца с охотничьими колбасками и солеными огурцами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-37',
@@ -524,6 +560,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Настоящая мясная бомба из четырех видов мяса.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-38',
@@ -538,6 +575,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Запеченные баклажаны с пармезаном и базиликом.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-39',
@@ -553,6 +591,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с щедрым набором даров моря и лимонной ноткой.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-40',
@@ -567,6 +606,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Настоящий рай для сырного гурмана. Пять видов сыра в одной пицце.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-41',
@@ -581,6 +621,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сытная пицца с беконом и хрустящим картофелем.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-42',
@@ -595,6 +636,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Для любителей лука — карамелизированный лук и бальзамик.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-43',
@@ -609,6 +651,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Итальянская пицца с артишоками и трюфельным маслом.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-44',
@@ -623,6 +666,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Испанский акцент: пикантная чоризо с паприкой и перцем.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-45',
@@ -637,6 +681,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сладкий ананас и нежное куриное филе с чеддером.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-46',
@@ -651,6 +696,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Самое популярное сочетание итальянской пиццы.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-47',
@@ -664,6 +710,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Нежный лосось и полезный шпинат на сливочной основе.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-48',
@@ -678,6 +725,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Для любителей поострее — три вида перца в одной пицце.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-49',
@@ -692,6 +740,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с двойным томатным вкусом: черри и вяленые томаты.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-50',
@@ -706,6 +755,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Сочная говядина с карамелизированным луком и грибами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-51',
@@ -720,6 +770,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пикантный микс из двух колбас и острого перца.',
     imageUrl: '/pizza.png',
+    category: 'spicy',
   },
   {
     id: 'pizza-52',
@@ -734,6 +785,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Легкая пицца со свежей рукколой и пармезаном.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-53',
@@ -749,6 +801,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Вкус классического бургера в формате пиццы.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-54',
@@ -763,6 +816,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Легкая летняя пицца с цукини, перцем и фетой.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-55',
@@ -776,6 +830,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Премиальная пицца с лобстером и сливочным соусом.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-56',
@@ -790,6 +845,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца в стиле нью-йоркского деликатеса с пастрами.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-57',
@@ -803,6 +859,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Итальянская классика из трех видов сыра.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
   {
     id: 'pizza-58',
@@ -817,6 +874,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Нежная говядина, тушеная с морковью и тимьяном.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-59',
@@ -831,6 +889,7 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с курицей, грибами и нежным сметанным соусом.',
     imageUrl: '/pizza.png',
+    category: 'meat',
   },
   {
     id: 'pizza-60',
@@ -846,13 +905,19 @@ export const pizzas: Pizza[] = [
     ],
     description: 'Пицца с четырьмя видами перца для настоящих гурманов.',
     imageUrl: '/pizza.png',
+    category: 'vegetarian',
   },
 ]
 
 export const fetchPizzas = (): Promise<Pizza[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(pizzas)
+      const pizzasWithRating = pizzas.map((pizza) => {
+        const idNumber = parseInt(pizza.id.split('-')[1], 10)
+        const rating = 3.5 + (idNumber % 15) / 10
+        return { ...pizza, rating: Number(rating.toFixed(1)) }
+      })
+      resolve(pizzasWithRating)
     }, 500)
   })
 }

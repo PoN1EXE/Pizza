@@ -6,6 +6,7 @@ $white: #ffffff;
 
 .pizzaList {
   margin-top: 20px;
+  overflow-x: hidden;
 }
 
 .pageTitle {
@@ -105,4 +106,41 @@ $white: #ffffff;
   text-align: center;
   font-size: 18px;
   color: $text-black;
+}
+.sortContainer {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  .sortLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #6b7280;
+  }
+
+  .sortSelect {
+    border: none;
+    background: transparent;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #fe5f00;
+    cursor: pointer;
+    outline: none;
+    padding: 0.2rem 1.2rem 0.2rem 0.2rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%236b7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 10px;
+    min-width: 80px;
+
+    option {
+      font-weight: 400;
+    }
+
+    &:focus-visible {
+      outline: none;
+    }
+  }
 }

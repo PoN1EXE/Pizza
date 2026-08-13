@@ -14,21 +14,45 @@ export const PizzaList = ({ searchQuery }: PizzaListProps) => {
     queryFn: fetchPizzas,
   })
 
+  const [activeCategory, setActiveCategory] = useState(`all`)
+  const filteredByCategory = data?.filter((pizza) => {
+    if (activeCategory === `all`) return true
+    return pizza.category === activeCategory
+  })
+
   const filteredData =
-    data?.filter((pizza) => pizza.name?.toLowerCase().includes(searchQuery.toLowerCase().trim())) ?? []
+    filteredByCategory?.filter((pizza) => pizza.name?.toLowerCase().includes(searchQuery.toLowerCase().trim())) ?? []
 
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
+  const [sortOption, setSortOption] = useState(`popular`)
+  const sortedData = [...(filteredData || [])].sort((a, b) => {
+    switch (sortOption) {
+      case 'popular':
+        return (b.rating ?? 0) - (a.rating ?? 0)
+      case 'price-asc':
+        return a.price - b.price
+      case 'price-desc':
+        return b.price - a.price
+      case 'name-asc':
+        return a.name.localeCompare(b.name)
+      case 'name-desc':
+        return b.name.localeCompare(a.name)
+      default:
+        return 0
+    }
+  })
+
   if (isLoading) return <div className={styles.loading}>Загрузка пицц...</div>
   if (error) return <div className={styles.error}>Ошибка: {error.message}</div>
 
-  const totalPizzas = filteredData.length
+  const totalPizzas = sortedData.length
   const totalPages = Math.ceil(totalPizzas / itemsPerPage)
 
   const startIndex = (currentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const currentPizzas = filteredData.slice(startIndex, endIndex)
+  const currentPizzas = sortedData.slice(startIndex, endIndex)
   const goToPage = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page)
@@ -38,12 +62,45 @@ export const PizzaList = ({ searchQuery }: PizzaListProps) => {
   return (
     <div className={styles.pizzaList}>
       <h2 className={styles.pageTitle}>Все пиццы</h2>
+
       <div className={styles.filtersTabs}>
-        <button className={`${styles.tab} ${styles.active}`}>Все</button>
-        <button className={styles.tab}>Мясные</button>
-        <button className={styles.tab}>Острые</button>
-        <button className={styles.tab}>Сладкие</button>
-        <button className={styles.tab}>Вегетарианские</button>
+        <button
+          onClick={() => setActiveCategory('all')}
+          className={`${styles.tab} ${activeCategory === 'all' ? styles.active : ''}`}>
+          Все
+        </button>
+        <button
+          onClick={() => setActiveCategory('meat')}
+          className={`${styles.tab} ${activeCategory === 'meat' ? styles.active : ''}`}>
+          Мясные
+        </button>
+        <button
+          onClick={() => setActiveCategory('spicy')}
+          className={`${styles.tab} ${activeCategory === 'spicy' ? styles.active : ''}`}>
+          Острые
+        </button>
+        <button
+          onClick={() => setActiveCategory('sweet')}
+          className={`${styles.tab} ${activeCategory === 'sweat' ? styles.active : ''}`}>
+          Сладкие
+        </button>
+        <button
+          onClick={() => setActiveCategory('vegetarian')}
+          className={`${styles.tab} ${activeCategory === 'vegetarian' ? styles.active : ''}`}>
+          Вегетарианские
+        </button>
+        <div className={styles.sortContainer}>
+          <h2 className={styles.sortLabel}>
+            Сортировать:
+            <select className={styles.sortSelect} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+              <option value='popular'>Сначала популярные</option>
+              <option value='price-asc'>Сначала дешёвые</option>
+              <option value='price-desc'>Сначала дорогие</option>
+              <option value='name-asc'>По алфавиту (А–Я)</option>
+              <option value='name-desc'>По алфавиту (Я–А)</option>
+            </select>
+          </h2>
+        </div>
       </div>
 
       <ul className={styles.grid}>

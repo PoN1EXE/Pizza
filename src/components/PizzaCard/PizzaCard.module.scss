@@ -17,11 +17,12 @@
 .card:hover {
   transform: translateY(-4px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+  border: 1px solid #ef4444;
 }
 
 .image {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   background: #f8fafc;
 }
@@ -38,6 +39,12 @@
   font-weight: 700;
   color: #0f172a;
   margin: 0 0 0.3rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 3rem;
+  line-height: 1.3;
 }
 
 .description {
@@ -50,6 +57,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   flex: 1;
+  min-height: 2.5rem;
 }
 
 .bottom {
