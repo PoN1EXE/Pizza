@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import type { ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchPizzas } from '../../mocks/pizzas'
 import { PizzaCard } from '../PizzaCard/PizzaCard'
@@ -6,9 +7,10 @@ import styles from './PizzaList.module.scss'
 
 interface PizzaListProps {
   searchQuery: string
+  sidebar?: ReactNode
 }
 
-export const PizzaList = ({ searchQuery }: PizzaListProps) => {
+export const PizzaList = ({ searchQuery, sidebar }: PizzaListProps) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['pizzas'],
     queryFn: fetchPizzas,
@@ -60,82 +62,102 @@ export const PizzaList = ({ searchQuery }: PizzaListProps) => {
   }
 
   return (
-    <div className={styles.pizzaList}>
-      <h2 className={styles.pageTitle}>Все пиццы</h2>
+    <div className={styles.pageLayout}>
+      {sidebar && <div className={styles.sidebar}>{sidebar}</div>}
+      <div className={styles.pizzaListWrapper}>
+        <h2 className={styles.pageTitle}>Все пиццы</h2>
 
-      <div className={styles.filtersTabs}>
-        <button
-          onClick={() => setActiveCategory('all')}
-          className={`${styles.tab} ${activeCategory === 'all' ? styles.active : ''}`}>
-          Все
-        </button>
-        <button
-          onClick={() => setActiveCategory('meat')}
-          className={`${styles.tab} ${activeCategory === 'meat' ? styles.active : ''}`}>
-          Мясные
-        </button>
-        <button
-          onClick={() => setActiveCategory('spicy')}
-          className={`${styles.tab} ${activeCategory === 'spicy' ? styles.active : ''}`}>
-          Острые
-        </button>
-        <button
-          onClick={() => setActiveCategory('sweet')}
-          className={`${styles.tab} ${activeCategory === 'sweat' ? styles.active : ''}`}>
-          Сладкие
-        </button>
-        <button
-          onClick={() => setActiveCategory('vegetarian')}
-          className={`${styles.tab} ${activeCategory === 'vegetarian' ? styles.active : ''}`}>
-          Вегетарианские
-        </button>
-        <div className={styles.sortContainer}>
-          <h2 className={styles.sortLabel}>
-            Сортировать:
-            <select className={styles.sortSelect} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
-              <option value='popular'>Сначала популярные</option>
-              <option value='price-asc'>Сначала дешёвые</option>
-              <option value='price-desc'>Сначала дорогие</option>
-              <option value='name-asc'>По алфавиту (А–Я)</option>
-              <option value='name-desc'>По алфавиту (Я–А)</option>
-            </select>
-          </h2>
-        </div>
-      </div>
-
-      <ul className={styles.grid}>
-        {currentPizzas?.map((pizza) => (
-          <PizzaCard key={pizza.id} pizza={pizza} />
-        ))}
-      </ul>
-
-      {totalPages > 1 && (
-        <div className={styles.pagination}>
+        <div className={styles.filtersTabs}>
           <button
-            type='button'
-            className={`${styles.page} ${styles.arrow}`}
-            onClick={() => goToPage(currentPage - 1)}
-            disabled={currentPage === 1}>
-            {'<'}
+            onClick={() => {
+              setActiveCategory('all')
+              setCurrentPage(1)
+            }}
+            className={`${styles.tab} ${activeCategory === 'all' ? styles.active : ''}`}>
+            Все
           </button>
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <button
+            onClick={() => {
+              setActiveCategory('meat')
+              setCurrentPage(1)
+            }}
+            className={`${styles.tab} ${activeCategory === 'meat' ? styles.active : ''}`}>
+            Мясные
+          </button>
+          <button
+            onClick={() => {
+              setActiveCategory('spicy')
+              setCurrentPage(1)
+            }}
+            className={`${styles.tab} ${activeCategory === 'spicy' ? styles.active : ''}`}>
+            Острые
+          </button>
+          <button
+            onClick={() => {
+              setActiveCategory('sweet')
+              setCurrentPage(1)
+            }}
+            className={`${styles.tab} ${activeCategory === 'sweet' ? styles.active : ''}`}>
+            Сладкие
+          </button>
+          <button
+            onClick={() => {
+              setActiveCategory('vegetarian')
+              setCurrentPage(1)
+            }}
+            className={`${styles.tab} ${activeCategory === 'vegetarian' ? styles.active : ''}`}>
+            Вегетарианские
+          </button>
+          <div className={styles.sortContainer}>
+            <h2 className={styles.sortLabel}>
+              Сортировать:
+              <select className={styles.sortSelect} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+                <option value='popular'>Сначала популярные</option>
+                <option value='price-asc'>Сначала дешёвые</option>
+                <option value='price-desc'>Сначала дорогие</option>
+                <option value='name-asc'>По алфавиту (А–Я)</option>
+                <option value='name-desc'>По алфавиту (Я–А)</option>
+              </select>
+            </h2>
+          </div>
+        </div>
+
+        <ul className={styles.grid}>
+          {currentPizzas?.map((pizza) => (
+            <li key={pizza.id}>
+              <PizzaCard pizza={pizza} />
+            </li>
+          ))}
+        </ul>
+
+        {totalPages > 1 && (
+          <div className={styles.pagination}>
             <button
               type='button'
-              key={page}
-              className={`${styles.page} ${currentPage === page ? styles.active : ''}`}
-              onClick={() => goToPage(page)}>
-              {page}
+              className={`${styles.page} ${styles.arrow}`}
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}>
+              {'<'}
             </button>
-          ))}
-          <button
-            type='button'
-            className={`${styles.page} ${styles.arrow}`}
-            onClick={() => goToPage(currentPage + 1)}
-            disabled={currentPage === totalPages}>
-            {'>'}
-          </button>
-        </div>
-      )}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+              <button
+                type='button'
+                key={page}
+                className={`${styles.page} ${currentPage === page ? styles.active : ''}`}
+                onClick={() => goToPage(page)}>
+                {page}
+              </button>
+            ))}
+            <button
+              type='button'
+              className={`${styles.page} ${styles.arrow}`}
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === totalPages}>
+              {'>'}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
