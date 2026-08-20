@@ -8,6 +8,7 @@ import styles from './PizzaList.module.scss'
 interface PizzaListProps {
   searchQuery: string
   sidebar?: ReactNode
+  selectedIngredients: string[]
 }
 
 export const PizzaList = ({ searchQuery, sidebar }: PizzaListProps) => {

@@ -7,8 +7,7 @@ $white: #ffffff;
 .pageLayout {
   display: flex;
   gap: 30px;
-  max-width: 1400px;
-  margin: 0 auto;
+  max-width: 95%;
   padding: 100px 20px 40px 20px;
 
   @media (max-width: 1024px) {
@@ -37,7 +36,6 @@ $white: #ffffff;
 }
 
 .filtersTabs {
-  position: sticky;
   top: 100px;
   z-index: 50;
   background: #ffffff;

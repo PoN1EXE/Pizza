@@ -1,6 +1,31 @@
+import { useState } from 'react'
+import { pizzas } from './../../mocks/pizzas'
 import styles from './FiltrationComponent.module.scss'
 
-export const FiltrationComponent = () => {
+interface FiltrationComponentProps {
+  onApply: (ingredients: string[]) => void
+}
+
+export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
+  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([])
+  const [showAllIngredients, setShowAllIngredients] = useState(false)
+
+  const allIngredients = pizzas.flatMap((pizza) => {
+    return pizza.ingredients
+  })
+
+  const ingredientNames = allIngredients.map((ingredient) => {
+    return ingredient.name
+  })
+
+  const uniqueIngredientNames = [...new Set(ingredientNames)]
+
+  const handleApply = () => {
+    onApply(selectedIngredients)
+  }
+
+  const visibleIngredients = showAllIngredients ? uniqueIngredientNames : uniqueIngredientNames.slice(0, 6)
+
   return (
     <aside className={styles.filters}>
       <h3 className={styles.title}>Фильтрация</h3>
@@ -27,24 +52,29 @@ export const FiltrationComponent = () => {
       <div className={styles.group}>
         <h4 className={styles.groupTitle}>Ингредиенты:</h4>
         <div className={styles.checkboxGroup}>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Сырный соус
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Моцарелла
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Чеснок
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Солёные огурчики
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Красный лук
-          </label>
-          <label className={styles.checkboxLabel}>
-            <input type='checkbox' /> Томаты
-          </label>
+          {visibleIngredients.map((ingredientName) => (
+            <label className={styles.checkboxLabel} key={ingredientName}>
+              <input
+                type='checkbox'
+                value={ingredientName}
+                onChange={(event) => {
+                  if (event.target.checked) {
+                    setSelectedIngredients([...selectedIngredients, event.target.value])
+                  } else {
+                    setSelectedIngredients(
+                      selectedIngredients.filter((ingredient) => {
+                        return ingredient !== event.target.value
+                      })
+                    )
+                  }
+                }}
+              />
+              {ingredientName}
+            </label>
+          ))}
+          <button type='button' onClick={() => setShowAllIngredients(!showAllIngredients)}>
+            {showAllIngredients ? 'Скрыть' : 'Показать все'}
+          </button>
         </div>
       </div>
 
@@ -60,7 +90,9 @@ export const FiltrationComponent = () => {
         </div>
       </div>
 
-      <button className={styles.applyBtn}>Применить</button>
+      <button className={styles.applyBtn} onClick={handleApply}>
+        Применить
+      </button>
     </aside>
   )
 }
