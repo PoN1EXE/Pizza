@@ -11,7 +11,7 @@ interface PizzaListProps {
   selectedIngredients: string[]
 }
 
-export const PizzaList = ({ searchQuery, sidebar }: PizzaListProps) => {
+export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaListProps) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['pizzas'],
     queryFn: fetchPizzas,
@@ -24,7 +24,16 @@ export const PizzaList = ({ searchQuery, sidebar }: PizzaListProps) => {
   })
 
   const filteredData =
-    filteredByCategory?.filter((pizza) => pizza.name?.toLowerCase().includes(searchQuery.toLowerCase().trim())) ?? []
+    filteredByCategory
+      ?.filter((pizza) => pizza.name?.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+      .filter((pizza) => {
+        if (selectedIngredients.length === 0) {
+          return true
+        }
+        return selectedIngredients.every((selectedIngredients) =>
+          pizza.ingredients.some((pizzaIngredient) => pizzaIngredient.name === selectedIngredients)
+        )
+      }) ?? []
 
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
@@ -123,13 +132,17 @@ export const PizzaList = ({ searchQuery, sidebar }: PizzaListProps) => {
           </div>
         </div>
 
-        <ul className={styles.grid}>
-          {currentPizzas?.map((pizza) => (
-            <li key={pizza.id}>
-              <PizzaCard pizza={pizza} />
-            </li>
-          ))}
-        </ul>
+        {currentPizzas.length > 0 ? (
+          <ul className={styles.grid}>
+            {currentPizzas?.map((pizza) => (
+              <li key={pizza.id}>
+                <PizzaCard pizza={pizza} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div> Упс такой пиццы нет!</div>
+        )}
 
         {totalPages > 1 && (
           <div className={styles.pagination}>

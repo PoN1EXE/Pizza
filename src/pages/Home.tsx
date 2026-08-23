@@ -2,7 +2,7 @@ import { useDebounce } from '../hooks/useDebounce'
 import { PizzaList } from '../components/PizzaList/PizzaList'
 import { FiltrationComponent } from '../components/FiltrationComponent/FiltrationComponent'
 import { useState } from 'react'
-import styles from './styles/home.module.scss'
+import styles from './styles/Home.module.scss'
 
 interface HomeProps {
   searchQuery: string
