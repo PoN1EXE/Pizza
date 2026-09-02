@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { ReactNode } from 'react'
+import type { ChangeEvent, ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchPizzas } from '../../mocks/pizzas'
 import { PizzaCard } from '../PizzaCard/PizzaCard'
@@ -9,6 +9,14 @@ interface PizzaListProps {
   searchQuery: string
   sidebar?: ReactNode
   selectedIngredients: string[]
+}
+
+const sortedOptions = ['popular', 'price-asc', 'price-desc', 'name-asc', 'name-desc'] as const
+
+type SortOption = (typeof sortedOptions)[number]
+
+const isSortOption = (value: string): value is SortOption => {
+  return sortedOptions.some((option) => option === value)
 }
 
 export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaListProps) => {
@@ -30,15 +38,23 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
         if (selectedIngredients.length === 0) {
           return true
         }
-        return selectedIngredients.every((selectedIngredients) =>
-          pizza.ingredients.some((pizzaIngredient) => pizzaIngredient.name === selectedIngredients)
+        return selectedIngredients.every((selectedIngredient) =>
+          pizza.ingredients.some((pizzaIngredient) => pizzaIngredient.name === selectedIngredient)
         )
       }) ?? []
 
   const [currentPage, setCurrentPage] = useState(1)
   const itemsPerPage = 10
 
-  const [sortOption, setSortOption] = useState(`popular`)
+  const [sortOption, setSortOption] = useState<SortOption>('popular')
+
+  const handleSortChange = (event: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = event.target
+    if (isSortOption(value)) {
+      setSortOption(value)
+    }
+  }
+
   const sortedData = [...(filteredData || [])].sort((a, b) => {
     switch (sortOption) {
       case 'popular':
@@ -121,7 +137,7 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
           <div className={styles.sortContainer}>
             <h2 className={styles.sortLabel}>
               Сортировать:
-              <select className={styles.sortSelect} value={sortOption} onChange={(e) => setSortOption(e.target.value)}>
+              <select className={styles.sortSelect} value={sortOption} onChange={handleSortChange}>
                 <option value='popular'>Сначала популярные</option>
                 <option value='price-asc'>Сначала дешёвые</option>
                 <option value='price-desc'>Сначала дорогие</option>

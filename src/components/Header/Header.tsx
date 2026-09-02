@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '../../store/hooks'
 import styles from './Header.module.scss'
 
 interface HeaderProps {
@@ -10,6 +11,9 @@ export const Header = ({ searchQuery, onSearchChange }: HeaderProps) => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onSearchChange(e.target.value)
   }
+
+  const cartItems = useAppSelector((state) => state.order.cartItems)
+  const totalQuantity = cartItems.reduce((total, item) => total + item.pizzaQuantity, 0)
 
   return (
     <header className={styles.header}>
@@ -29,7 +33,7 @@ export const Header = ({ searchQuery, onSearchChange }: HeaderProps) => {
 
       <nav className={styles.nav}>
         <Link to='/profile'>Профиль</Link>
-        <Link to='/order'>Заказ</Link>
+        <Link to='/order'>Корзина товаров: {totalQuantity}</Link>
       </nav>
     </header>
   )

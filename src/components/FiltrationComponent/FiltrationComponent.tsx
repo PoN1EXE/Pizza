@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ChangeEvent } from 'react'
 import { pizzas } from './../../mocks/pizzas'
 import styles from './FiltrationComponent.module.scss'
 
@@ -6,22 +6,28 @@ interface FiltrationComponentProps {
   onApply: (ingredients: string[]) => void
 }
 
+const uniqueIngredientNames = [
+  ...new Set(pizzas.flatMap((pizza) => pizza.ingredients.map((ingredient) => ingredient.name))),
+]
+
 export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
   const [selectedIngredients, setSelectedIngredients] = useState<string[]>([])
   const [showAllIngredients, setShowAllIngredients] = useState(false)
 
-  const allIngredients = pizzas.flatMap((pizza) => {
-    return pizza.ingredients
-  })
-
-  const ingredientNames = allIngredients.map((ingredient) => {
-    return ingredient.name
-  })
-
-  const uniqueIngredientNames = [...new Set(ingredientNames)]
-
   const handleApply = () => {
     onApply(selectedIngredients)
+  }
+
+  const handleIngredientChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { checked, value } = event.target
+
+    setSelectedIngredients((prev) => {
+      if (checked) {
+        return [...prev, value]
+      }
+
+      return prev.filter((ingredient) => ingredient !== value)
+    })
   }
 
   const visibleIngredients = showAllIngredients ? uniqueIngredientNames : uniqueIngredientNames.slice(0, 6)
@@ -57,17 +63,7 @@ export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
               <input
                 type='checkbox'
                 value={ingredientName}
-                onChange={(event) => {
-                  if (event.target.checked) {
-                    setSelectedIngredients([...selectedIngredients, event.target.value])
-                  } else {
-                    setSelectedIngredients(
-                      selectedIngredients.filter((ingredient) => {
-                        return ingredient !== event.target.value
-                      })
-                    )
-                  }
-                }}
+                onChange={handleIngredientChange}
               />
               {ingredientName}
             </label>

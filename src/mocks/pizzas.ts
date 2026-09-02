@@ -4,6 +4,7 @@ export interface Ingredient {
   price: number
 }
 
+export type PizzaCategory = 'vegetarian' | 'spicy' | 'meat' | 'sweet'
 export interface Pizza {
   id: string
   name: string
@@ -12,7 +13,7 @@ export interface Pizza {
   description: string
   imageUrl: string
   rating?: number
-  category: string
+  category: PizzaCategory
 }
 export const pizzas: Pizza[] = [
   {
