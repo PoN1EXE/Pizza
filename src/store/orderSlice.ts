@@ -24,9 +24,33 @@ const orderSlice = createSlice({
         })
       }
     },
+    increasePizzaQuantity(state, action: PayloadAction<string>) {
+      const existingItem = state.cartItems.find((item) => item.pizzaId === action.payload)
+
+      if (existingItem) {
+        existingItem.pizzaQuantity += 1
+      }
+    },
+    decreasePizzaQuantity(state, action: PayloadAction<string>) {
+      const existingItem = state.cartItems.find((item) => item.pizzaId === action.payload)
+
+      if (existingItem) {
+        if (existingItem.pizzaQuantity > 1) {
+          existingItem.pizzaQuantity -= 1
+        } else {
+          state.cartItems = state.cartItems.filter((item) => item.pizzaId !== action.payload)
+        }
+      }
+    },
+    removePizza(state, action: PayloadAction<string>) {
+      state.cartItems = state.cartItems.filter((item) => item.pizzaId !== action.payload)
+    },
+    clearCart(state) {
+      state.cartItems = []
+    },
   },
 })
 
-export const { addPizza } = orderSlice.actions
+export const { addPizza, increasePizzaQuantity, decreasePizzaQuantity, removePizza, clearCart } = orderSlice.actions
 
 export default orderSlice.reducer
