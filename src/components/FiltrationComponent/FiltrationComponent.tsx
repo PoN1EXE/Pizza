@@ -1,36 +1,44 @@
 import { useState, type ChangeEvent } from 'react'
 import { pizzas } from './../../mocks/pizzas'
+import type { PizzaFilters } from '../../types/filters'
 import styles from './FiltrationComponent.module.scss'
 
 interface FiltrationComponentProps {
-  onApply: (ingredients: string[]) => void
+  filters: PizzaFilters
+  onApply: (filters: PizzaFilters) => void
 }
 
 const uniqueIngredientNames = [
   ...new Set(pizzas.flatMap((pizza) => pizza.ingredients.map((ingredient) => ingredient.name))),
 ]
 
-export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
-  const [selectedIngredients, setSelectedIngredients] = useState<string[]>([])
+export const FiltrationComponent = ({ onApply, filters }: FiltrationComponentProps) => {
+  const [draftFilters, setDraftFilters] = useState<PizzaFilters>(filters)
   const [showAllIngredients, setShowAllIngredients] = useState(false)
 
   const handleApply = () => {
-    onApply(selectedIngredients)
+    if (hasInvalidPriceRange) {
+      return
+    }
+
+    onApply(draftFilters)
   }
 
   const handleIngredientChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target
 
-    setSelectedIngredients((prev) => {
-      if (checked) {
-        return [...prev, value]
-      }
-
-      return prev.filter((ingredient) => ingredient !== value)
-    })
+    setDraftFilters((currentFilters) => ({
+      ...currentFilters,
+      ingredients: checked
+        ? [...currentFilters.ingredients, value]
+        : currentFilters.ingredients.filter((ingredient) => ingredient !== value),
+    }))
   }
 
   const visibleIngredients = showAllIngredients ? uniqueIngredientNames : uniqueIngredientNames.slice(0, 6)
+
+  const hasInvalidPriceRange =
+    draftFilters.minPrice !== null && draftFilters.maxPrice !== null && draftFilters.minPrice > draftFilters.maxPrice
 
   return (
     <aside className={styles.filters}>
@@ -50,8 +58,36 @@ export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
       <div className={styles.group}>
         <h4 className={styles.groupTitle}>Цена от и до:</h4>
         <div className={styles.priceRange}>
-          <input />
-          <input />
+          <input
+            type='number'
+            min='0'
+            placeholder='От'
+            value={draftFilters.minPrice ?? ''}
+            onChange={(event) => {
+              const value = event.target.value
+
+              setDraftFilters((currentFilters) => ({
+                ...currentFilters,
+                minPrice: value === '' ? null : Number(value),
+              }))
+            }}
+          />
+
+          <input
+            type='number'
+            min='0'
+            placeholder='До'
+            value={draftFilters.maxPrice ?? ''}
+            onChange={(event) => {
+              const value = event.target.value
+
+              setDraftFilters((currentFilters) => ({
+                ...currentFilters,
+                maxPrice: value === '' ? null : Number(value),
+              }))
+            }}
+          />
+          {hasInvalidPriceRange && <p>Минимальная цена не может быть больше максимальной</p>}
         </div>
       </div>
 
@@ -63,6 +99,7 @@ export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
               <input
                 type='checkbox'
                 value={ingredientName}
+                checked={draftFilters.ingredients.includes(ingredientName)}
                 onChange={handleIngredientChange}
               />
               {ingredientName}
@@ -86,7 +123,7 @@ export const FiltrationComponent = ({ onApply }: FiltrationComponentProps) => {
         </div>
       </div>
 
-      <button className={styles.applyBtn} onClick={handleApply}>
+      <button type='button' className={styles.applyBtn} onClick={handleApply} disabled={hasInvalidPriceRange}>
         Применить
       </button>
     </aside>

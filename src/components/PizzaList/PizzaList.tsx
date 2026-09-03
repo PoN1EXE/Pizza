@@ -3,12 +3,13 @@ import type { ChangeEvent, ReactNode } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { fetchPizzas } from '../../mocks/pizzas'
 import { PizzaCard } from '../PizzaCard/PizzaCard'
+import type { PizzaFilters } from '../../types/filters'
 import styles from './PizzaList.module.scss'
 
 interface PizzaListProps {
   searchQuery: string
   sidebar?: ReactNode
-  selectedIngredients: string[]
+  filters: PizzaFilters
 }
 
 const sortedOptions = ['popular', 'price-asc', 'price-desc', 'name-asc', 'name-desc'] as const
@@ -19,7 +20,7 @@ const isSortOption = (value: string): value is SortOption => {
   return sortedOptions.some((option) => option === value)
 }
 
-export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaListProps) => {
+export const PizzaList = ({ searchQuery, sidebar, filters }: PizzaListProps) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ['pizzas'],
     queryFn: fetchPizzas,
@@ -33,12 +34,17 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
 
   const filteredData =
     filteredByCategory
-      ?.filter((pizza) => pizza.name?.toLowerCase().includes(searchQuery.toLowerCase().trim()))
+      ?.filter((pizza) => pizza.name.toLowerCase().includes(searchQuery.toLowerCase().trim()))
       .filter((pizza) => {
-        if (selectedIngredients.length === 0) {
-          return true
+        if (filters.minPrice !== null && pizza.price < filters.minPrice) {
+          return false
         }
-        return selectedIngredients.every((selectedIngredient) =>
+
+        if (filters.maxPrice !== null && pizza.price > filters.maxPrice) {
+          return false
+        }
+
+        return filters.ingredients.every((selectedIngredient) =>
           pizza.ingredients.some((pizzaIngredient) => pizzaIngredient.name === selectedIngredient)
         )
       }) ?? []
@@ -52,6 +58,7 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
     const { value } = event.target
     if (isSortOption(value)) {
       setSortOption(value)
+      setCurrentPage(1)
     }
   }
 
@@ -78,7 +85,9 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
   const totalPizzas = sortedData.length
   const totalPages = Math.ceil(totalPizzas / itemsPerPage)
 
-  const startIndex = (currentPage - 1) * itemsPerPage
+  const safeCurrentPage = Math.min(currentPage, Math.max(totalPages, 1))
+
+  const startIndex = (safeCurrentPage - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
   const currentPizzas = sortedData.slice(startIndex, endIndex)
   const goToPage = (page: number) => {
@@ -157,7 +166,7 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
             ))}
           </ul>
         ) : (
-          <div> Упс такой пиццы нет!</div>
+          <div> По вашему запросу ничего не найдено!</div>
         )}
 
         {totalPages > 1 && (
@@ -165,15 +174,15 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
             <button
               type='button'
               className={`${styles.page} ${styles.arrow}`}
-              onClick={() => goToPage(currentPage - 1)}
-              disabled={currentPage === 1}>
+              onClick={() => goToPage(safeCurrentPage - 1)}
+              disabled={safeCurrentPage === 1}>
               {'<'}
             </button>
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
               <button
                 type='button'
                 key={page}
-                className={`${styles.page} ${currentPage === page ? styles.active : ''}`}
+                className={`${styles.page} ${safeCurrentPage === page ? styles.active : ''}`}
                 onClick={() => goToPage(page)}>
                 {page}
               </button>
@@ -181,8 +190,8 @@ export const PizzaList = ({ searchQuery, sidebar, selectedIngredients }: PizzaLi
             <button
               type='button'
               className={`${styles.page} ${styles.arrow}`}
-              onClick={() => goToPage(currentPage + 1)}
-              disabled={currentPage === totalPages}>
+              onClick={() => goToPage(safeCurrentPage + 1)}
+              disabled={safeCurrentPage === totalPages}>
               {'>'}
             </button>
           </div>

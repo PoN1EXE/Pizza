@@ -18,6 +18,7 @@ export const Order = () => {
       {cartItems.map((item) => (
         <div key={item.pizzaId}>
           <h2>Название: {item.pizzaName}</h2>
+          <img src={item.pizzaImage} alt={item.pizzaName} />
           <p>Цена: {item.pizzaPrice} ₽</p>
           <button type='button' onClick={() => dispatch(decreasePizzaQuantity(item.pizzaId))}>
             -
