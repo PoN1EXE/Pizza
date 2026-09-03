@@ -1,8 +1,12 @@
+import type { Ingredient } from '../mocks/pizzas'
+
 export interface CartItem {
+  cartItemId: string
   pizzaId: string
   pizzaName: string
   pizzaPrice: number
   pizzaImage: string
+  pizzaAdditions: Ingredient[]
   pizzaQuantity: number
 }
 

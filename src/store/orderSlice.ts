@@ -13,7 +13,7 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     addPizza(state, action: PayloadAction<NewCartItem>) {
-      const existingItem = state.cartItems.find((item) => item.pizzaId === action.payload.pizzaId)
+      const existingItem = state.cartItems.find((item) => item.cartItemId === action.payload.cartItemId)
 
       if (existingItem) {
         existingItem.pizzaQuantity += 1
@@ -25,25 +25,25 @@ const orderSlice = createSlice({
       }
     },
     increasePizzaQuantity(state, action: PayloadAction<string>) {
-      const existingItem = state.cartItems.find((item) => item.pizzaId === action.payload)
+      const existingItem = state.cartItems.find((item) => item.cartItemId === action.payload)
 
       if (existingItem) {
         existingItem.pizzaQuantity += 1
       }
     },
     decreasePizzaQuantity(state, action: PayloadAction<string>) {
-      const existingItem = state.cartItems.find((item) => item.pizzaId === action.payload)
+      const existingItem = state.cartItems.find((item) => item.cartItemId === action.payload)
 
       if (existingItem) {
         if (existingItem.pizzaQuantity > 1) {
           existingItem.pizzaQuantity -= 1
         } else {
-          state.cartItems = state.cartItems.filter((item) => item.pizzaId !== action.payload)
+          state.cartItems = state.cartItems.filter((item) => item.cartItemId !== action.payload)
         }
       }
     },
     removePizza(state, action: PayloadAction<string>) {
-      state.cartItems = state.cartItems.filter((item) => item.pizzaId !== action.payload)
+      state.cartItems = state.cartItems.filter((item) => item.cartItemId !== action.payload)
     },
     clearCart(state) {
       state.cartItems = []

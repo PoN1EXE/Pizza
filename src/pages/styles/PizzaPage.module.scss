@@ -1,0 +1,299 @@
+.pizzaPage {
+  flex: 1;
+  width: 100%;
+  padding: 48px 32px 64px;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+.pizzaPageContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.pizzaInformation {
+  display: grid;
+  grid-template-columns: minmax(320px, 0.9fr) minmax(340px, 1.1fr);
+  gap: 48px;
+  padding: 36px;
+  background: #ffffff;
+  border: 1px solid #e9edf2;
+  border-radius: 24px;
+  box-shadow: 0 8px 28px rgb(15 23 42 / 6%);
+}
+
+.pizzaImageContainer {
+  display: grid;
+  place-items: center;
+  min-height: 420px;
+  padding: 28px;
+  background: #fff7ed;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.pizzaImage {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 20px rgb(15 23 42 / 14%));
+}
+
+.pizzaDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+}
+
+.pizzaEyebrow,
+.additionsEyebrow {
+  margin: 0 0 6px;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.pizzaName {
+  margin: 0;
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+}
+
+.pizzaDescription {
+  max-width: 680px;
+  margin: 20px 0 28px;
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.65;
+}
+
+.ingredientsTitle {
+  margin: 0 0 14px;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.ingredientsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ingredientItem {
+  padding: 8px 12px;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+}
+
+.basePrice {
+  margin: 28px 0 0;
+  color: #64748b;
+  font-size: 17px;
+
+  strong {
+    color: #ef4444;
+    font-size: 22px;
+  }
+}
+
+.additionsSection {
+  margin-top: 28px;
+  padding: 32px;
+  background: #ffffff;
+  border: 1px solid #e9edf2;
+  border-radius: 24px;
+  box-shadow: 0 8px 28px rgb(15 23 42 / 5%);
+}
+
+.additionsHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.additionsTitle {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.selectedAdditionsCount {
+  padding: 9px 14px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 700;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.orderSummary {
+  position: sticky;
+  bottom: 20px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-top: 28px;
+  padding: 20px 24px;
+  background: rgb(255 255 255 / 94%);
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  box-shadow: 0 14px 36px rgb(15 23 42 / 14%);
+  backdrop-filter: blur(14px);
+}
+
+.totalPriceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.totalPriceLabel {
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.totalPrice {
+  color: #0f172a;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.addToCartButton {
+  min-width: 230px;
+  padding: 14px 24px;
+  color: #ffffff;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 700;
+  background: #ef4444;
+  border: 1px solid #ef4444;
+  border-radius: 30px;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.15s ease;
+
+  &:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    box-shadow: 0 8px 20px rgb(239 68 68 / 25%);
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgb(239 68 68 / 22%);
+    outline-offset: 3px;
+  }
+}
+
+.pizzaNotFound {
+  display: grid;
+  place-items: center;
+  max-width: 680px;
+  min-height: 320px;
+  margin: 20px auto;
+  padding: 40px 24px;
+  color: #64748b;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  background: #ffffff;
+  border: 2px dashed #e2e8f0;
+  border-radius: 24px;
+}
+
+@media (max-width: 900px) {
+  .pizzaInformation {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .pizzaImageContainer {
+    min-height: auto;
+  }
+
+  .pizzaImage {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 640px) {
+  .pizzaPage {
+    padding: 28px 16px 40px;
+  }
+
+  .pizzaInformation,
+  .additionsSection {
+    padding: 20px;
+    border-radius: 20px;
+  }
+
+  .pizzaImageContainer {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .pizzaDescription {
+    margin: 16px 0 22px;
+    font-size: 15px;
+  }
+
+  .additionsHeading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .additionsTitle {
+    font-size: 26px;
+  }
+
+  .orderSummary {
+    bottom: 10px;
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+    padding: 16px;
+  }
+
+  .totalPriceContainer {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .addToCartButton {
+    width: 100%;
+    min-width: 0;
+  }
+}

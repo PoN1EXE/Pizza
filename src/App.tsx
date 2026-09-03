@@ -19,7 +19,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/order' element={<Order />} />
         <Route path='/admin' element={<Admin />} />
-        <Route path='/pizza/:pizzaId' element={<PizzaPage />} />
+        <Route path='/pizza/:id' element={<PizzaPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>
